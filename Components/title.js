@@ -12,8 +12,9 @@ const Title = () => {
 
 const styles = StyleSheet.create({
      title: {
-          fontSize: 30,
-          fontWeight: '600',
+          fontSize: 38,
+          fontWeight: '400',
+          color: 'black',
      }, container: {
           paddingVertical: 16,
           justifyContent: 'center',

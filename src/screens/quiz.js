@@ -14,7 +14,7 @@ const Quiz = ({ navigation }) => {
      const status = useSelector(getStatus);
      const questions = useSelector(selectAllQuizs);
 
-     // console.log(questions)
+     console.log(questions)
 
      const noofquestions = useSelector(getNoOfQuestions);
 

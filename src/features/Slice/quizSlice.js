@@ -22,10 +22,10 @@ export const quizSlice = createSlice({
           },
           result: (state) => {
                state.Percentage = (state.Marks / state.TotalMarks) * 100;
-
-               if (state.Percentage > 80) {
+               // console.log(state.Percentage)
+               if (state.Percentage >= 80) {
                     state.Result = 'Pass';
-               } else if (state.Percentage < 80 && state.Percentage > 60) {
+               } else if (state.Percentage >= 60 && state.Percentage < 80) {
                     state.Result = 'Good Attempt';
                } else {
                     state.Result = 'Fail';
@@ -38,7 +38,7 @@ export const quizSlice = createSlice({
                state.Q = [];
                state.status = 'idle'; // idle | loading | successful | failed
                state.error = null;
-
+               state.correctoptions = [];
                state.TotalMarks = 0;
                state.Marks = 0;
                state.Result = 'Not Attempt';  //Not attempt|| pass || good attempt || fail 
@@ -67,7 +67,7 @@ export const quizSlice = createSlice({
 })
 
 
-export const { increment, result, correctoptions } = quizSlice.actions;
+export const { increment, result, correctoptions, cleanup } = quizSlice.actions;
 export const selectAllQuizs = state => state.Quizs.Q;
 export const getStatus = state => state.Quizs.status;
 export const getError = state => state.Quizs.error;

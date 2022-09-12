@@ -8,9 +8,9 @@ const Home = ({ navigation }) => {
      // const Banner = ;
      return (
           <View style={styles.container}>
-               <Title />
+               <Title title={'Quizzler'} />
                <View style={styles.bannercontainer}>
-                    <Image source={require('../src/Images/banner.png')} style={styles.banner} resizeMode="contain" />
+                    <Image source={require('../Assets/Images/banner.png')} style={styles.banner} resizeMode="contain" />
                </View>
                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('QuizSetting')} >
                     <Text style={styles.btntext} >Start</Text>

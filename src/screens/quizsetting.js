@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchQuestions } from '../features/Api/QuizRequest'
-
-import Dropdown from '../Components/Dropdown'
+import { useDispatch } from "react-redux";
+import { fetchQuestions } from '../features/Api/QuizRequest';
+import { cleanup } from '../features/Slice/quizSlice';
+import Dropdown from '../Components/Dropdown';
 import React, { useState } from 'react';
+import Title from '../Components/title';
+import Rules from '../Components/Rules';
 
 const questionstype = [
      {
@@ -36,7 +38,7 @@ const questionsdifficulty = [
 ];
 
 const Setting = ({ navigation }) => {
-     const dispatch = useDispatch()
+     const dispatch = useDispatch();
 
      const [type, setType] = useState('multiple');
      const [difficulty, setDifficulty] = useState('easy');
@@ -44,7 +46,8 @@ const Setting = ({ navigation }) => {
 
 
      const handleonPress = () => {
-          if (noofquestions % 10 === 0) {
+          dispatch(cleanup());
+          if (noofquestions >= 5) {
                dispatch(fetchQuestions({ amount: noofquestions, diff: difficulty, type: type }));
                navigation.navigate('Quiz');
           }
@@ -54,7 +57,8 @@ const Setting = ({ navigation }) => {
      return (
           <View style={styles.container}>
                <View style={styles.settings}>
-                    <Text style={styles.settingtitle}>Welcome To Quizzler</Text>
+                    <Title title={'Welcome To Quizzler'} />
+                    <Rules />
                     <View style={styles.diffsettings}>
                          <TextInput style={styles.input} placeholder="No. Of Questions" onChangeText={newText => setNoOfQuestions(newText)}
                               value={noofquestions} />
@@ -85,23 +89,18 @@ const styles = StyleSheet.create({
           width: '100%',
 
      }, settings: {
-          alignItems: 'center',
-          flex: 1,
-          justifyContent: 'center',
-
-     }, settingtitle: {
-          // borderWidth: 1,
-          fontSize: 38,
-          fontWeight: '400',
-          color: 'black',
-          margin: 5,
+          borderWidth: 1,
+          height: '100%',
 
      }, diffsettings: {
-          padding: 16,
-          margin: 5,
-          alignItems: 'center',
-          // borderWidth: 1,
+          padding: 10,
+          margin: 8,
+          marginTop: 10,
+
      }, dropdowncon: {
+          width: '100%',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
 
      }, button: {
           width: '100%',
@@ -116,14 +115,11 @@ const styles = StyleSheet.create({
           fontSize: 18,
           fontWeight: '600',
           color: 'white',
+
      }, input: {
-          width: 220,
+          width: '100%',
           borderWidth: 1,
           padding: 8,
           borderRadius: 16,
-     },
-
-
-
-
+     }
 });

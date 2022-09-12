@@ -9,14 +9,11 @@ const Dropdown = ({ data, currentvalue, onchangefun }) => {
                style={styles.dropdown}
                selectedTextStyle={styles.selectedTextStyle}
                placeholderStyle={styles.placeholderStyle}
-               // imageStyle={styles.imageStyle}
-               // iconStyle={styles.iconStyle}
                maxHeight={200}
                value={currentvalue}
                data={data}
                valueField="value"
                labelField="lable"
-               // imageField="image"
                placeholder="Type"
                searchPlaceholder="Search..."
                onChange={onchangefun}
@@ -28,12 +25,12 @@ export default Dropdown;
 
 const styles = StyleSheet.create({
      dropdown: {
-          margin: 16,
+          marginVertical: 15,
           height: 50,
-          width: 160,
+          width: 150,
           backgroundColor: '#EEEEEE',
           borderRadius: 16,
-          paddingHorizontal: 8,
+          paddingHorizontal: 5,
      }, placeholderStyle: {
           fontSize: 16,
      },

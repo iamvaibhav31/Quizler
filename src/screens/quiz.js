@@ -1,38 +1,42 @@
 /* eslint-disable prettier/prettier */
-import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View, FlatList, ActivityIndicator } from 'react-native'
-import React, { useState, useMemo, useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { selectAllQuizs, getNoOfQuestions, getStatus, increment, result, correctoptions } from '../features/Slice/quizSlice'
-import RightSvg from '../src/SVG/right-tick.svg'
+import { StyleSheet, Text, TouchableOpacity, View, FlatList, ActivityIndicator } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAllQuizs, getNoOfQuestions, getStatus, increment, result, correctoptions } from '../features/Slice/quizSlice';
+// import RightSvg from '../Assets/SVG/right-tick.svg';
+
 const Quiz = ({ navigation }) => {
 
-     const dispatch = useDispatch()
+     const dispatch = useDispatch();
      const [number, setNumber] = useState(0);
      const [ans, setAns] = useState('');
-     const [opts, setOpts] = useState([])
+     const [opts, setOpts] = useState([]);
      const status = useSelector(getStatus);
      const questions = useSelector(selectAllQuizs);
 
-     console.log(questions)
+     // console.log(questions)
+
      const noofquestions = useSelector(getNoOfQuestions);
+
 
      function shuffleArray(array) {
           for (let i = array.length - 1; i > 0; i--) {
                const j = Math.floor(Math.random() * (i + 1));
                [array[i], array[j]] = [array[j], array[i]];
           }
-          return array
+          return array;
      }
+
 
      useEffect(() => {
           if (status !== 'loading') {
-               setOpts(shuffleArray([...questions[number].incorrect_answers, questions[number].correct_answer]))
+               setOpts(shuffleArray([...questions[number].incorrect_answers, questions[number].correct_answer]));
                dispatch(correctoptions({
                     ques_no: number + 1,
                     correct_answer: questions[number].correct_answer,
-               }))
+               }));
           } else {
-               setOpts([])
+               setOpts([]);
           }
      }, [dispatch, questions, number, status]);
 
@@ -43,13 +47,10 @@ const Quiz = ({ navigation }) => {
           } else {
                setNumber(number + 1);
           }
-          setAns("");
+          setAns('');
      };
 
-     // {
-     // ques_no: action.payload.num + 1,
-     //  correct_answer: state.Q[action.payload.num].correct_answer,
-     // }
+
      const handleNext = () => {
           if (ans !== '') {
                if (ans === questions[number].correct_answer) {
@@ -57,7 +58,7 @@ const Quiz = ({ navigation }) => {
                }
 
                setNumber(number + 1);
-               setAns("");
+               setAns('');
           }
      };
 
@@ -73,27 +74,20 @@ const Quiz = ({ navigation }) => {
      };
 
 
-
      const renderOptions = ({ item }) => (
           <TouchableOpacity style={styles.opnbtn} onPress={() => { setAns(item); }}>
-               {ans === item && <View style={styles.opnwithselector}>
-                    <View></View>
+               <View style={styles.opnwithselector}>
+                    <View />
                     <View>
                          <Text style={styles.option}>{decodeURIComponent(item)}</Text>
                     </View>
                     <View style={styles.opnselector}>
-                         <RightSvg width={15} height={18} />
+                         {/* {ans === item && <RightSvg width={15} height={18} />} */}
                     </View>
-               </View>}
-
-               {ans !== item && <View style={styles.opnwithoutselector}>
-                    <View>
-                         <Text style={styles.option}>{decodeURIComponent(item)}</Text>
-                    </View>
-               </View>}
-
+               </View>
           </TouchableOpacity >
      );
+
 
      return (
           <View style={styles.container}>
